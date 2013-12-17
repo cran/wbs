@@ -1,0 +1,16 @@
+Package: wbs
+Type: Package
+Title: Wild Binary Segmentation for multiple change-point detection
+Version: 1.0
+Date: 2013-12-17
+Author: Rafal Baranowski and Piotr Fryzlewicz
+Maintainer: Rafal Baranowski <r.baranowski@lse.ac.uk>
+Depends: graphics
+Description: The package implements Wild Binary Segmentation and Binary
+    Segmentation algorithms for estimation of the number and locations of
+    multiple change-points in univariate time series.
+License: GPL-2
+NeedsCompilation: yes
+Packaged: 2014-01-08 12:48:10 UTC; root
+Repository: CRAN
+Date/Publication: 2014-01-08 14:00:16
