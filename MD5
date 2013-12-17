@@ -1,4 +1,4 @@
-86dcbfd88ecb9531dddc1475dee95d80 *DESCRIPTION
+089c4b6a2c7a1aca38efe23e51698957 *DESCRIPTION
 c7a5227d68f9d12b0e869d9a887d95d2 *NAMESPACE
 bb2cfe42320279ae65858fc544107a3f *R/changepoints.R
 eb132cd2bde329d56aa2323bd285e252 *R/fixed.intervals.R
@@ -19,4 +19,4 @@ e5ca3e6c26198305b0af1cfbf8c8d68e *man/random.intervals.Rd
 740a8fd53ed99764cdf2dc1454809cc8 *man/sbs.Rd
 661ca5ea2db89d4992fae9004c7428b4 *man/wbs-package.Rd
 23f40c36142cdc7284e11f31e0f09e0b *man/wbs.Rd
-c067d1758d7fe5c4e23ee1668f3dbbd1 *src/wbs.c
+f9dec65b70be9953345fb3db72ca9a11 *src/wbs.c

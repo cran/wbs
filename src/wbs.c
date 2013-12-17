@@ -163,7 +163,7 @@ void wbs_int_rec(double *x, int *n, int s, int e, int *len, double *res, double 
 			}
 
 			if(indexnl){
-				Realloc(indexl,indexnl,int);
+				indexl = Realloc(indexl,indexnl,int);
 	
 				wbs_int_rec(x, n, s, cptcand, len, res, iplus, iminus, ipres, ipargmax, ipmax, wbsres, indexl, indexnl, M,minth);
 				Free(indexl);
@@ -174,7 +174,7 @@ void wbs_int_rec(double *x, int *n, int s, int e, int *len, double *res, double 
 			}
 
 			if(indexnr){
-				Realloc(indexr,indexnr,int);
+				indexr = Realloc(indexr,indexnr,int);
 		
 				wbs_int_rec(x, n, cptcand +1, e, len, res, iplus, iminus, ipres, ipargmax, ipmax, wbsres, indexr, indexnr, M,minth);
 				Free(indexr);
