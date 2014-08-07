@@ -1,13 +1,12 @@
-#' @title Plot function for 'sbs' object.
-#' @description Plots data with fitted piecewiese constant function, equal to the mean
-#' between specified change-points.
+#' @title Plot for an 'sbs' object
+#' @description Plots the input vector used to generate 'sbs' object \code{x} with fitted piecewise constant function, equal to the mean
+#' between change-points specified in \code{cpt}.
 #' @details When \code{cpt} is omitted, the function automatically finds change-points 
-#' using \code{changepoints} function.
+#' using \code{changepoints} function with a default value of the threshold.
 #' @method plot sbs
-#' @S3method plot sbs
 #' @export 
 #' @param x an object of class 'sbs', returned by \code{\link{sbs}}
-#' @param cpt a vector with localisations of change-points
+#' @param cpt a vector of integers with localisations of change-points
 #' @param ... other parameters which may be passed to \code{plot} and \code{changepoints}
 #' @seealso \code{\link{sbs}}  \code{\link{changepoints}}
 
@@ -27,23 +26,22 @@ plot.sbs <- function(x,cpt,...){
 	
 }
 
-#' @title Plot function for 'wbs' object.
-#' @description Plots data with fitted piecewiese constant function, equal to the mean
-#' between specified change-points.
+#' @title Plot for a 'wbs' object
+#' @description Plots the input vector used to generate 'wbs' object \code{x} with fitted piecewise constant function, equal to the mean
+#' between change-points specified in \code{cpt}.
 #' @details When \code{cpt} is omitted, the function automatically finds change-points 
-#' using \code{changepoints} function.
+#' using \code{changepoints} function with strengthened Schwarz Information Criterion as a stopping criterion for the WBS algorithm.
 #' @method plot wbs
-#' @S3method plot wbs
 #' @export 
 #' @param x an object of class 'wbs', returned by \code{\link{wbs}}
-#' @param cpt a vector with localisations of change-points
+#' @param cpt a vector of integers with localisations of change-points
 #' @param ... other parameters which may be passed to \code{plot} and \code{changepoints}
-#' @seealso \code{\link{wbs}}  \code{\link{changepoints}}
+#' @seealso \code{\link{wbs}}  \code{\link{changepoints}} \code{\link{ssic.penalty}}
 
 
 plot.wbs <- function(x,cpt,...){
 	
-	if(missing(cpt)) plot.sbs(x,...)
+	if(missing(cpt)) plot.sbs(x,cpt=changepoints(x,penalty="ssic.penalty")$cpt.ic[["ssic.penalty"]],...)
 	else plot.sbs(x,cpt,...)
 	
 }

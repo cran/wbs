@@ -1,10 +1,9 @@
 #' @title Wild Binary Segmentation for multiple change-point detection
-#' @description The package implements Wild Binary Segmentation, a technique for consistent estimation of
-#' the number and locations of multiple change-points in data. Aditionally, a fast implementation of standard Binary Segmentation
-#' algorithm is provided.
-#' @details The main functions of the package are \code{\link{wbs}}, \code{\link{sbs}} and \code{\link{changepoints}}.
-#' @references P. Fryzlewicz (2013), Wild Binary Segmentation for multiple change-point detection. Under revision.\cr 
-#'  (\url{http://stats.lse.ac.uk/fryzlewicz/wbs/wbs.pdf})
+#' @description The package implements Wild Binary Segmentation, a technique for
+#' consistent estimation of  the number and locations of multiple change-points in data.
+#' It also provides a fast implementation of the standard Binary Segmentation algorithm.
+#' @details The main routines of the package are \code{\link{wbs}}, \code{\link{sbs}} and \code{\link{changepoints}}.	
+#' @references P. Fryzlewicz (2014), Wild Binary Segmentation for multiple change-point detection. Annals of Statistics, to appear. (\url{http://stats.lse.ac.uk/fryzlewicz/wbs/wbs.pdf})
 #' @docType package
 #' @useDynLib wbs
 #' @name wbs-package
@@ -15,66 +14,67 @@
 #' s <- sbs(x)
 #' w <- wbs(x)
 #' 
-#' cpt.sbs <- changepoints(s)
-#' cpt.sbs
+#' s.cpt <- changepoints(s)
+#' s.cpt
 #' 
-#' cpt.wbs <- changepoints(w)
-#' cpt.wbs
+#' w.cpt <- changepoints(w)
+#' w.cpt
 #' # in this example, both algorithms work well
 #' x <- rnorm(300) + c(rep(1,50),rep(0,250))
 #' 
 #' s <- sbs(x)
 #' w <- wbs(x)
 #' 
-#' cpt.sbs <- changepoints(s)
-#' cpt.sbs
+#' s.cpt <- changepoints(s)
+#' s.cpt
 #' 
-#' cpt.wbs <- changepoints(w)
-#' cpt.wbs
+#' w.cpt <- changepoints(w)
+#' w.cpt
+#' @keywords ts models math
 
 
 NULL
 
-#' @title Change-point detection via Wild Binary Segmentation.
-#' @description Finds change-points for all possible thresholds, using Wild Binary Segmentation algorithm. 
-#' @param x a vector
+#' @title Change-point detection via Wild Binary Segmentation
+#' @description The function applies the Wild Binary Segmentation algorithm to identify potential locations of the change-points in the mean of the input vector \code{x}. 
+#' The object returned by this routine can be further passed to the \code{\link{changepoints}} function, 
+#' which finds the final estimate of the change-points based on chosen stopping criteria.
+#' @param x a numeric vector
 #' @examples
 #' x <- rnorm(300) + c(rep(1,50),rep(0,250))
 #' w <- wbs(x)
-#' w
 #' plot(w)
-#' cpt <- changepoints(w)
-#' cpt
-#' th <- c(cpt$th,0.7*cpt$th) 
-#' cpt <- changepoints(w,th=th)
-#' cpt$cpt.th
+#' w.cpt <- changepoints(w)
+#' w.cpt
+#' th <- c(w.cpt$th,0.7*w.cpt$th) 
+#' w.cpt <- changepoints(w,th=th)
+#' w.cpt$cpt.th
 #' @rdname wbs
 #' @export
 
 wbs <- function(x, ...)  UseMethod("wbs")
 
 #' @method wbs default
-#' @S3method wbs default
+#' @export 
 #' @rdname wbs
-#' @param M the number of intervals used in WBS procedure
-#' @param rand.intervals a logical variable indicating which function is used to generate intervals in the procedure.
-#' If \code{rand.intervals=TRUE}, \code{\link{random.intervals}} is applied, otherwise \code{\link{fixed.intervals}} is chosen.      
-#' @param integrated a logical variable indicating the version of Wild Binary Segmentation algorithm used. When \code{integrated=TRUE}, 
-#' augmented version of WBS is launched, which combines WBS and BS into one. 
-#' @param ... additional arguments that may be passed to wbs method.
+#' @param M a number of intervals used in the WBS algorithm
+#' @param rand.intervals a logical variable; if \code{rand.intervals=TRUE} intervals used in the procedure are random, thus
+#' the output of the algorithm may slightly vary from run to run;  for \code{rand.intervals=FALSE} the intervals used depend on \code{M} and the length of \code{x} only,
+#' hence the output is always the same for given input parameters 
+#' @param integrated a logical variable indicating the version of Wild Binary Segmentation algorithm used; when \code{integrated=TRUE}, 
+#' augmented version of WBS is launched, which combines WBS and BS into one 
+#' @param ... not in use
 #' @return an object of class "wbs", which contains the following fields
-#' \item{x}{the vector provided}
+#' \item{x}{the input vector provided}
 #' \item{n}{the length of \code{x}}
 #' \item{M}{the number of intervals used}
 #' \item{rand.intervals}{a logical variable indicating type of intervals}
 #' \item{integrated}{a logical variable indicating type of WBS procedure}
-#' \item{res}{a 5-column matrix with results, where 's' and 'e' denote start-
-#' end points of the intervals in which change-points candidates 'cpt' have been found.
-#' Column 'CUSUM' contains corresponding value of CUSUM statistic, 'min.th' is the smallest 
-#' threshold value for which change-point candidate would be not added to the set of estimated 
-#' change-points.}
-
- 
+#' \item{res}{a 6-column matrix with results, where 's' and 'e' denote start-
+#' end points of the intervals in which change-points candidates 'cpt' have been found;
+#' column 'CUSUM' contains corresponding value of CUSUM statistic; 'min.th' is the smallest 
+#' threshold value for which given change-point candidate would be not added to the set of estimated 
+#' change-points; the last column is the scale at which the change-point has been found} 
 
 wbs.default <- function(x, M=5000,  rand.intervals = TRUE,integrated=TRUE,...){
 	results <- list()	
@@ -83,7 +83,7 @@ wbs.default <- function(x, M=5000,  rand.intervals = TRUE,integrated=TRUE,...){
 	results$M <- as.integer(M)
 	results$integrated <- as.logical(integrated)
 	results$rand.intervals <- as.logical(rand.intervals)
-	results$res <- matrix(nrow=0,ncol=5)
+	results$res <- matrix(nrow=0,ncol=6)
 	
 	if(results$n <2) stop("x should contain at least two elements")
 	if(NA%in%results$x) stop("x vector cannot contain NA's")
@@ -97,33 +97,23 @@ wbs.default <- function(x, M=5000,  rand.intervals = TRUE,integrated=TRUE,...){
 	else intervals <- matrix(fixed.intervals(results$n,results$M),ncol=2)
 	
 	if(results$integrated){
-		tmp <- .C("wbs_int_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,5*(results$n-1))), as.integer(intervals), as.integer(results$M))[[3]]
-		results$res <- matrix(tmp,ncol=5)	
+		tmp <- .C("wbs_int_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,6*(results$n-1))), as.integer(intervals), as.integer(results$M))[[3]]
+		results$res <- matrix(tmp,ncol=6)	
 	}else{
-		tmp <- .C("wbs", as.double(results$x), as.integer(results$n), as.double(rep(0,5*results$M)), as.integer(intervals), as.integer(results$M))[[3]]
-		
-		sorted <- matrix(tmp,ncol=5)
-		sorted <- matrix(sorted[order(sorted[,5],decreasing=TRUE),],ncol=5)
-		
-		results$res <- matrix(0, nrow=results$n-1,ncol=5)
-		
-		j <- 1
-		
-		while (nrow(sorted)) {
-			results$res[j,] <- sorted[1,]
-			cpt.cand <- sorted[1,3]
-			sorted <- matrix(sorted[!(sorted[,1] <= cpt.cand & sorted[,2] > cpt.cand),], ncol=5)
-			j <- j + 1
-		}	
-		
-		results$res <- matrix(results$res[1:(j-1),],ncol=5)
+		tmp <- .C("wbs_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,6*(results$n-1))), as.integer(intervals), as.integer(results$M))[[3]]
+	
+		results$res <- matrix(tmp,ncol=6)
+		results$res <- matrix(results$res[as.integer(results$res[,1])>0,],ncol=6)
 		
 	}
 	
 	
-	colnames(results$res) <- c("s","e","cpt","CUSUM","min.th")
+	colnames(results$res) <- c("s","e","cpt","CUSUM","min.th","scale")
 	
 	class(results) <- "wbs"
+
+	results$cpt <- changepoints(results)
+	
 	return(results)
 	
 }

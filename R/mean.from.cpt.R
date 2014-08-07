@@ -1,11 +1,11 @@
-#' Evaluates the mean between cpt.
+#' Mean between change-points
 #'
-#' Finds the mean between given cpt.
+#' The function finds the average of the input vector \code{x} between change-points given in \code{cpt}.    
 #'
 #' @param x a vector
-#' @param cpt a vector localisations of change-points
-#' @param ... further arguments passed to or from other methods.
-#' @return returns a vector of the same lenght as \code{x}, piecewise constant and equal to the mean between change-points given in \code{cpt} 
+#' @param cpt a vector of integers with localisations of change-points
+#' @param ... further arguments passed to \code{mean} method
+#' @return a vector of the same length as \code{x}, piecewise constant and equal to the mean between change-points given in \code{cpt} 
 #' @export mean.from.cpt
 #' @examples
 #' x <- rnorm(100)+c(rep(-1,50),rep(1,50))

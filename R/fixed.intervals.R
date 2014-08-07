@@ -1,10 +1,13 @@
-#' @title Fixed intervals.
-#' @description Generates endpoints of \code{M} intervals.
-#' @details Function finds the minimal \code{m} such that \code{M} <= \code{m(m-1)/2}. 
-#' Then it finds \code{m} approximately equally-spaced integers and returns all possible intervals consisting of any two of these points. 
-#' @param n the maximal length of an interval
-#' @param M a number of intervals 
-#' @return a matrix with endpoints of an interval in each row
+#' Fixed intervals
+#' 
+#' The function generates approximately \code{M} intervals with endpoints in \code{1},\code{2},...,\code{n}, without random drawing. This routine 
+#' can be used inside \code{\link{wbs}} function and is typically not called directly by the user.
+#'  
+#' @details Function finds the minimal \code{m} such that \eqn{M\leq \frac{m(m-1)}{2}}{\code{M} <= \code{m(m-1)/2}}. 
+#' Then it generates \code{m} approximately equally-spaced positive integers lower than \code{n} and returns all possible intervals consisting of any two of these points. 
+#' @param n a number of endpoints to choose from
+#' @param M a number of intervals to generate
+#' @return a 2-column matrix with start (first column) and end (second column) points of an interval in each row
 #' @examples
 #' fixed.intervals(10,100)
 #' @export fixed.intervals

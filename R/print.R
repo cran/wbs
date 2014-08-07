@@ -1,10 +1,9 @@
-#' Print function for 'wbs' objects.
+#' Print for a 'wbs' object
 #'
 #' @param x an object of class 'wbs'
-#' @param ... Ignored
+#' @param ... further arguments passed to \code{print} method
 #' @return NULL
 #' @method print wbs
-#' @S3method print wbs
 #' @export
 #' @seealso \code{\link{wbs}}
 
@@ -25,14 +24,13 @@ print.wbs <- function(x,...){
 
 
 		
-#' Print function for 'sbs' objects.
+#' Print for an 'sbs' object
 #'
 #' @param x an object of class 'sbs'
-#' @param ... Ignored
+#' @param ... further arguments passed to \code{print} method
 #' @return NULL
 #' @method print sbs
-#' @S3method print sbs
-#' @export
+#' @export 
 #' @seealso \code{\link{sbs}}
 		
 print.sbs <- function(x,...){
