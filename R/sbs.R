@@ -38,8 +38,11 @@ sbs.default <- function(x, ...){
 	if(results$n <2) stop("x should contain at least two elements")
 	if(NA%in%results$x) stop("x vector cannot contain NA's")
 	if(var(x)==0) stop("x is a constant vector, change-point detection is not needed")
-	tmp <- .C("bs_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,6*(results$n-1))))[[3]]
-	results$res <- matrix(tmp,ncol=6)		
+  
+	results$res <- matrix(.C("bs_rec_wrapper",
+                           x = as.double(results$x),
+                           n = as.integer(results$n),
+                           res = double(6*(results$n-1)))$res,results$n-1,6)
 	
 	colnames(results$res) <- c("s","e","cpt","CUSUM","min.th","scale")
 	

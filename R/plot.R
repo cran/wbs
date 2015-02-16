@@ -16,9 +16,9 @@ plot.sbs <- function(x,cpt,...){
 	if(missing(cpt)){
 		w.cpt <- changepoints(x,...)
 		print
-		means <- mean.from.cpt(x$x,w.cpt$cpt.th[[1]])
+		means <- means.between.cpt(x$x,w.cpt$cpt.th[[1]])
 	}else{
-		means <- mean.from.cpt(x$x,cpt)
+		means <- means.between.cpt(x$x,cpt)
 	}
 	
 	lines(x=means,type="l",col="red")

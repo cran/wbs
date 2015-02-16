@@ -94,16 +94,27 @@ wbs.default <- function(x, M=5000,  rand.intervals = TRUE,integrated=TRUE,...){
 	if(results$M<0)  stop("M should be an integer > 0")
 	
 	if(results$rand.intervals) intervals <-  matrix(random.intervals(results$n,results$M),ncol=2)
-	else intervals <- matrix(fixed.intervals(results$n,results$M),ncol=2)
+	else {
+    intervals <- matrix(fixed.intervals(results$n,results$M),ncol=2)
+    results$M <- nrow(intervals)
+	}
 	
 	if(results$integrated){
-		tmp <- .C("wbs_int_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,6*(results$n-1))), as.integer(intervals), as.integer(results$M))[[3]]
-		results$res <- matrix(tmp,ncol=6)	
+		results$res <- matrix(.C("wbs_int_rec_wrapper", 
+                             x = as.double(results$x), 
+                             n = as.integer(results$n), 
+                             res = double(6*(results$n-1)),
+                             intervals = as.integer(intervals),
+                             M = as.integer(results$M))$res,results$n-1,6)
 	}else{
-		tmp <- .C("wbs_rec_wrapper", as.double(results$x), as.integer(results$n), as.double(rep(0,6*(results$n-1))), as.integer(intervals), as.integer(results$M))[[3]]
-	
-		results$res <- matrix(tmp,ncol=6)
-		results$res <- matrix(results$res[as.integer(results$res[,1])>0,],ncol=6)
+	  results$res <- matrix(.C("wbs_rec_wrapper", 
+	                           x = as.double(results$x), 
+	                           n = as.integer(results$n), 
+	                           res = double(6*(results$n-1)),
+	                           intervals = as.integer(intervals),
+	                           M = as.integer(results$M))$res,results$n-1,6)
+
+    results$res <- matrix(results$res[as.integer(results$res[,1])>0,],ncol=6)
 		
 	}
 	

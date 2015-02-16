@@ -190,7 +190,7 @@ changepoints.wbs <- function(object,th=NULL,th.const=1.3, Kmax=50,penalty=c("ssi
 				
 			if(len.cpt) for(i in len.cpt:1){
 
-				min.log.lik <- object$n/2 * log(sum((object$x -  mean.from.cpt(object$x,cpt.cand[1:i]))^2)/object$n)
+				min.log.lik <- object$n/2 * log(sum((object$x -  means.between.cpt(object$x,cpt.cand[1:i]))^2)/object$n)
 				
 				for(j in 1:length(penalty)){
 					

@@ -1,4 +1,4 @@
-#' Mean between change-points
+#' Means between change-points
 #'
 #' The function finds the average of the input vector \code{x} between change-points given in \code{cpt}.    
 #'
@@ -6,16 +6,16 @@
 #' @param cpt a vector of integers with localisations of change-points
 #' @param ... further arguments passed to \code{mean} method
 #' @return a vector of the same length as \code{x}, piecewise constant and equal to the mean between change-points given in \code{cpt} 
-#' @export mean.from.cpt
+#' @export means.between.cpt
 #' @examples
 #' x <- rnorm(100)+c(rep(-1,50),rep(1,50))
 #' cpt <- 50
-#' mean.from.cpt(x,cpt)
+#' means.between.cpt(x,cpt)
 #' w <- wbs(x)
 #' cpt <- changepoints(w)
-#' mean.from.cpt(x,cpt=cpt$cpt.ic$sbic)
+#' means.between.cpt(x,cpt=cpt$cpt.ic$sbic)
 
-mean.from.cpt <-
+means.between.cpt <-
 		function(x, cpt=NULL,...) {
 	
 	x <- as.numeric(x)
