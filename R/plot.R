@@ -4,6 +4,8 @@
 #' @details When \code{cpt} is omitted, the function automatically finds change-points 
 #' using \code{changepoints} function with a default value of the threshold.
 #' @method plot sbs
+#' @importFrom stats ts.plot
+#' @importFrom graphics lines title
 #' @export 
 #' @param x an object of class 'sbs', returned by \code{\link{sbs}}
 #' @param cpt a vector of integers with localisations of change-points

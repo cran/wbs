@@ -5,7 +5,7 @@
 #' @details The main routines of the package are \code{\link{wbs}}, \code{\link{sbs}} and \code{\link{changepoints}}.	
 #' @references P. Fryzlewicz (2014), Wild Binary Segmentation for multiple change-point detection. Annals of Statistics, to appear. (\url{http://stats.lse.ac.uk/fryzlewicz/wbs/wbs.pdf})
 #' @docType package
-#' @useDynLib wbs
+#' @useDynLib wbs, .registration = TRUE
 #' @name wbs-package
 #' @examples
 #' #an example in which standard Binary Segmentation fails to detect change points

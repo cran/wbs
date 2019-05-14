@@ -72,6 +72,7 @@ changepoints  <- function(object,...) UseMethod("changepoints")
 #' @method changepoints sbs
 #' @export 
 #' @rdname changepoints
+#' @importFrom stats mad var quantile
 
 changepoints.sbs <- function(object,th=NULL,th.const=1.3,Kmax=NULL,...){
 	

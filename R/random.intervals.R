@@ -8,6 +8,7 @@
 #' @return a \code{M} by 2 matrix with start (first column) and end (second column) points of an interval in each row
 #' @examples
 #' random.intervals(10,100)
+#' @importFrom stats runif
 #' @export random.intervals
 #' @seealso \code{\link{fixed.intervals}} \code{\link{wbs}}
 
