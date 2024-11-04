@@ -116,16 +116,16 @@ void bs_rec(double *x, int n, int s, int e, double *res, double *iplus, double *
 
 void bs_rec_wrapper(double *x, int *n, double *res){
 	
-	double *iplus= Calloc(*n-1,double);
-	double *iminus= Calloc(*n-1,double);
-	double *ipres= Calloc(*n-1,double);
+	double *iplus= R_Calloc(*n-1,double);
+	double *iminus= R_Calloc(*n-1,double);
+	double *ipres= R_Calloc(*n-1,double);
 	
 	/*negative value of minth serves as infinity*/
 	bs_rec(x, *n, 1, *n,  res,iplus, iminus,ipres, -1.0, 1);
 
-	Free(iplus);
-	Free(iminus);
-	Free(ipres);
+	R_Free(iplus);
+	R_Free(iminus);
+	R_Free(ipres);
   
 }
 
@@ -171,8 +171,8 @@ void wbs_int_rec(double *x, int n, int s, int e, double *res, double *iplus, dou
 			res[IDX(cptcand,6,n-1)] = (double)scale;
 
 			/*left*/
-			int *indexl= Calloc(indexn,int);
-			int *indexr= Calloc(indexn,int);
+			int *indexl= R_Calloc(indexn,int);
+			int *indexr= R_Calloc(indexn,int);
 			int indexnl = 0;
 			int indexnr = 0;
 			int i;
@@ -188,25 +188,25 @@ void wbs_int_rec(double *x, int n, int s, int e, double *res, double *iplus, dou
 			}
 
 			if(indexnl){
-				indexl = Realloc(indexl,indexnl,int);
+				indexl = R_Realloc(indexl,indexnl,int);
         wbs_int_rec(x, n, s, cptcand, res, iplus, iminus, ipres,  wbsres, indexl, indexnl, M,minth, scale+1);
-				Free(indexl);
+				R_Free(indexl);
         
 			}else{
-				Free(indexl);
+				R_Free(indexl);
 
 				bs_rec(x, n, s, cptcand,  res,iplus, iminus,ipres,minth, scale+1);
 			}
 
 			if(indexnr){
-				indexr = Realloc(indexr,indexnr,int);
+				indexr = R_Realloc(indexr,indexnr,int);
 		
 				wbs_int_rec(x, n, cptcand +1, e, res, iplus, iminus, ipres, wbsres, indexr, indexnr, M,minth,scale+1);
-				Free(indexr);
+				R_Free(indexr);
         
 			}else{
 				
-        Free(indexr);		
+        R_Free(indexr);		
 				bs_rec(x, n, cptcand +1, e, res, iplus, iminus,ipres,minth,scale+1);
         
 			}
@@ -218,11 +218,11 @@ void wbs_int_rec(double *x, int n, int s, int e, double *res, double *iplus, dou
 	}
 }
 void wbs_int_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M){
-	double *iplus= Calloc(*n-1,double);
-	double *iminus= Calloc(*n-1,double);
-	double *ipres= Calloc(*n-1,double);
-	double *wbsres= Calloc(*M * 5,double);
-	int *index = Calloc(*M,int);
+	double *iplus= R_Calloc(*n-1,double);
+	double *iminus= R_Calloc(*n-1,double);
+	double *ipres= R_Calloc(*n-1,double);
+	double *wbsres= R_Calloc(*M * 5,double);
+	int *index = R_Calloc(*M,int);
 	int i,s,e,cptcand;
 	int ipargmax;
   double ipmax;
@@ -245,13 +245,13 @@ void wbs_int_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M
 	}
 	/* sort elementd from the one with the largest abs(cusum)*/
   
-	double *tmp= Calloc(*M,double);
+	double *tmp= R_Calloc(*M,double);
 
 	memcpy(tmp,&wbsres[IDX(1,5,*M)],*M * sizeof(double));
 
 	revsort(tmp,index,*M);
 
-	Free(tmp);
+	R_Free(tmp);
 	
 
 
@@ -259,11 +259,11 @@ void wbs_int_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M
 	
 	wbs_int_rec(x, *n, 1, *n, res, iplus, iminus, ipres, wbsres, index, *M, *M,-1.0,1);
 
-	Free(iplus);
-	Free(iminus);
-	Free(ipres);
-  Free(index);	
-	Free(wbsres);
+	R_Free(iplus);
+	R_Free(iminus);
+	R_Free(ipres);
+  R_Free(index);	
+	R_Free(wbsres);
   
 }
 
@@ -288,8 +288,8 @@ void wbs_rec(double *x, int n, int s, int e,  double *res, double *wbsres, int *
 			res[IDX(cptcand,6,n-1)] = (double)scale;
 
 			/*left*/
-			int *indexl = Calloc(indexn,int);
-			int *indexr = Calloc(indexn,int);
+			int *indexl = R_Calloc(indexn,int);
+			int *indexr = R_Calloc(indexn,int);
 			int indexnl = 0;
 			int indexnr = 0;
 			int i;
@@ -305,15 +305,15 @@ void wbs_rec(double *x, int n, int s, int e,  double *res, double *wbsres, int *
 			}
 
 			if(indexnl){
-				indexl = Realloc(indexl,indexnl,int);
+				indexl = R_Realloc(indexl,indexnl,int);
 				wbs_rec(x, n, s, cptcand, res, wbsres, indexl, indexnl, M, scale+1);
-				Free(indexl);
+				R_Free(indexl);
 			}
       
 			if(indexnr){
-				indexr = Realloc(indexr,indexnr,int);
+				indexr = R_Realloc(indexr,indexnr,int);
 				wbs_rec(x, n, cptcand +1, e, res,  wbsres, indexr, indexnr, M, scale+1);
-				Free(indexr);
+				R_Free(indexr);
 			}
 			
 		}
@@ -322,12 +322,12 @@ void wbs_rec(double *x, int n, int s, int e,  double *res, double *wbsres, int *
 
 void wbs_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M){
   
-	double *iplus= Calloc(*n-1,double);
-	double *iminus= Calloc(*n-1,double);
-	double *ipres= Calloc(*n-1,double);
-	double *wbsres= Calloc(*M * 5,double);
+	double *iplus= R_Calloc(*n-1,double);
+	double *iminus= R_Calloc(*n-1,double);
+	double *ipres= R_Calloc(*n-1,double);
+	double *wbsres= R_Calloc(*M * 5,double);
 	double ipmax;
-	int *index = Calloc(*M,int);
+	int *index = R_Calloc(*M,int);
 	int ipargmax, i,s,e,cptcand;
 	
 	/* find cpt candidates on given intervals*/
@@ -349,13 +349,13 @@ void wbs_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M){
     
 	}
 	/* sort elementd from the one with the largest abs(cusum)*/
-	double *tmp= Calloc(*M,double);
+	double *tmp= R_Calloc(*M,double);
 
 	memcpy(tmp,&wbsres[IDX(1,5,*M)],*M * sizeof(double));
 
 	revsort(tmp,index,*M);
 
-	Free(tmp);
+	R_Free(tmp);
 	
 
 
@@ -363,10 +363,10 @@ void wbs_rec_wrapper(double *x, int *n, double *res,  int *intervals, int *M){
 	
 	wbs_rec(x, *n, 1, *n, res, wbsres, index, *M, *M, 1);
 
-	Free(iplus);
-	Free(iminus);
-	Free(ipres);	
-	Free(index);
-	Free(wbsres);
+	R_Free(iplus);
+	R_Free(iminus);
+	R_Free(ipres);	
+	R_Free(index);
+	R_Free(wbsres);
   
 }

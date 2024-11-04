@@ -1,10 +1,15 @@
 Package: wbs
 Type: Package
 Title: Wild Binary Segmentation for Multiple Change-Point Detection
-Version: 1.4
+Version: 1.4.1
 Date: 2019-04-17
-Author: Rafal Baranowski and Piotr Fryzlewicz
-Maintainer: Rafal Baranowski <package_maintenance@rbaranowski.com>
+Authors@R: c(person(given = "Rafal",
+                    family = "Baranowski",
+                    role = c("aut", "cre"),
+                    email = "package_maintenance@rbaranowski.com"),
+             person(given = "Piotr",
+                    family = "Fryzlewicz",
+                    role = "aut"))
 Depends: graphics
 Description: Provides efficient implementation of the Wild Binary Segmentation and Binary
     Segmentation algorithms for estimation of the number and locations of
@@ -14,5 +19,8 @@ License: GPL-2
 NeedsCompilation: yes
 Repository: CRAN
 RoxygenNote: 6.1.1
-Packaged: 2019-05-14 20:02:52 UTC; rafal
-Date/Publication: 2019-05-14 21:40:03 UTC
+Packaged: 2024-11-04 17:49:48 UTC; hornik
+Date/Publication: 2024-11-04 18:35:34 UTC
+Author: Rafal Baranowski [aut, cre],
+  Piotr Fryzlewicz [aut]
+Maintainer: Rafal Baranowski <package_maintenance@rbaranowski.com>

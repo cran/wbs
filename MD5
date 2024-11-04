@@ -1,4 +1,4 @@
-fad6dc95f08bf06b9b1af3a34801fbae *DESCRIPTION
+8d7dd0e5b3138bf7705ce453e3a77c2d *DESCRIPTION
 28022a461ddfc8a21ac4f32add9b34b1 *NAMESPACE
 8397f212a72b8a16697ceb735cb6da2c *R/changepoints.R
 266815d7f81527cf61c04b814411a796 *R/fixed.intervals.R
@@ -23,6 +23,6 @@ e2327b08a895393a1faad22a50d1b23b *man/sbs.Rd
 f5cea8a9128d273a53ec4c100899f528 *man/ssic.penalty.Rd
 72c62563331ddcff0c758e85b7bd1242 *man/wbs-package.Rd
 1e54e4af0f6f72f836de5f8b2420ee01 *man/wbs.Rd
-819cdbe5b211d0a9e059c9e5d7ef169f *src/wbs.c
+a86e608f4393178182d4a9d09ec505af *src/wbs.c
 a1562e69006c88dd32df77b9362b05a2 *src/wbs.h
 55cb43af755cdd0fe5a04583c461fba5 *src/wbs_init.c
